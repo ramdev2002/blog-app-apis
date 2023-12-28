@@ -24,6 +24,8 @@ public class GlobalExceptionHandler {
         return new  ResponseEntity<ApiResponse>(apiResponse,HttpStatus.NOT_FOUND);
     }
 
+
+    // validated the fields and exception are handled globally
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,String>> handleMethodArgNotValidException(MethodArgumentNotValidException ex){
         Map<String,String> response=new HashMap<>();
