@@ -3,6 +3,7 @@ package com.jamesblog.blog_app.controller;
 
 import com.jamesblog.blog_app.playload.ApiResponse;
 import com.jamesblog.blog_app.playload.PostDto;
+import com.jamesblog.blog_app.playload.PostResponse;
 import com.jamesblog.blog_app.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,12 +50,12 @@ public class PostController {
 
     // get all the post
     @GetMapping("/allposts")
-    public ResponseEntity<List<PostDto>> getAllPost(
+    public ResponseEntity<PostResponse> getAllPost(
             @RequestParam(value = "pageNumber",defaultValue = "1",required = false) Integer pageNumber,
             @RequestParam(value = "pageSize",defaultValue = "2",required = false) Integer pageSize
     ){
-        List<PostDto> posts=this.postService.getAllPost(pageNumber,pageSize);
-        return new ResponseEntity<List<PostDto>>(posts, HttpStatus.OK);
+        PostResponse postResponse =this.postService.getAllPost(pageNumber,pageSize);
+        return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK);
     }
     //delete post
     @DeleteMapping("delete/{postId}")

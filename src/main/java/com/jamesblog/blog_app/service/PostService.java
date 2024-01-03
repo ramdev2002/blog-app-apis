@@ -2,6 +2,7 @@ package com.jamesblog.blog_app.service;
 
 import com.jamesblog.blog_app.entity.Post;
 import com.jamesblog.blog_app.playload.PostDto;
+import com.jamesblog.blog_app.playload.PostResponse;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface PostService {
     PostDto getPostById(Integer postId);
 
     //get all post
-    List<PostDto> getAllPost(Integer pageNumber,Integer pageSize);
+    PostResponse getAllPost(Integer pageNumber, Integer pageSize);
 
     //get all post by category
     List<PostDto> getPostByCategory(Integer categoryId);
