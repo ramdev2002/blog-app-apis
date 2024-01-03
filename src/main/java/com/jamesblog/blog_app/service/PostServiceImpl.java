@@ -10,6 +10,9 @@ import com.jamesblog.blog_app.repository.PostRepo;
 import com.jamesblog.blog_app.repository.UserRepo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -61,9 +64,14 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public List<PostDto> getAllPost() {
-        List<Post> post=this.postRepo.findAll();
-        List<PostDto> postDtos=post.stream().map((pos)->this.modelMapper.map(pos,PostDto.class)).collect(Collectors.toList());
+    public List<PostDto> getAllPost(Integer pageNumber,Integer pageSize) {
+
+        Pageable p= PageRequest.of(pageNumber,pageSize);//screate Pageable p Object for pagination
+        Page<Post> pagePost=this.postRepo.findAll(p);//pass the pageable p object to repo
+        List<Post> allPosts=pagePost.getContent();//get all the content
+
+        //convert list of post to postDto
+        List<PostDto> postDtos=allPosts.stream().map((pos)->this.modelMapper.map(pos,PostDto.class)).collect(Collectors.toList());
         return postDtos;
     }
 

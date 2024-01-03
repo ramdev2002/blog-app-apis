@@ -1,6 +1,6 @@
 package com.jamesblog.blog_app.controller;
 
-import com.jamesblog.blog_app.entity.Post;
+
 import com.jamesblog.blog_app.playload.ApiResponse;
 import com.jamesblog.blog_app.playload.PostDto;
 import com.jamesblog.blog_app.service.PostService;
@@ -49,8 +49,11 @@ public class PostController {
 
     // get all the post
     @GetMapping("/allposts")
-    public ResponseEntity<List<PostDto>> getAllPost(){
-        List<PostDto> posts=this.postService.getAllPost();
+    public ResponseEntity<List<PostDto>> getAllPost(
+            @RequestParam(value = "pageNumber",defaultValue = "1",required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize",defaultValue = "2",required = false) Integer pageSize
+    ){
+        List<PostDto> posts=this.postService.getAllPost(pageNumber,pageSize);
         return new ResponseEntity<List<PostDto>>(posts, HttpStatus.OK);
     }
     //delete post
